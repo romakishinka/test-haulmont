@@ -18,6 +18,6 @@ public class Credit {
     private String name;
     private Integer limit;
     private Integer percent;
-    @OneToMany(mappedBy = "credit", targetEntity = Offer.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "credit", targetEntity = Offer.class, fetch = FetchType.LAZY)
     private List<Offer> offers;
 }

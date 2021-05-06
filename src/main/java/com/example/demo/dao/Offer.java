@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +25,7 @@ public class Offer {
     @EmbeddedId
     private KeyForOffer keyForOffer;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "creditID", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "clientID", referencedColumnName = "id", insertable = false, updatable = false)
     private Client client;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "creditID", referencedColumnName = "id", insertable = false, updatable = false)

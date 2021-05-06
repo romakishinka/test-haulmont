@@ -4,7 +4,7 @@ DROP TABLE Credit IF EXISTS;
 
 CREATE TABLE Client
 (
-    id        INT IDENTITY PRIMARY KEY,
+    id        int IDENTITY PRIMARY KEY,
     name      VARCHAR(255) NOT NULL,
     telephone VARCHAR(15) UNIQUE,
     email     VARCHAR(255) UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE Client
 
 CREATE TABLE Credit
 (
-    id      INT IDENTITY PRIMARY KEY NOT NULL,
+    id      int IDENTITY PRIMARY KEY NOT NULL,
     name    VARCHAR(255)             NOT NULL,
     limit   int,
     percent int

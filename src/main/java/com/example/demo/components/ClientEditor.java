@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.spring.annotation.SpringComponent;
@@ -25,7 +26,7 @@ public class ClientEditor extends VerticalLayout implements KeyNotifier {
     private Client client;
     private TextField name = new TextField("Имя");
     private TextField telephone = new TextField("Номер телефона");
-    private TextField email = new TextField("Адрес электронной почты");
+    private EmailField email = new EmailField("Адрес электронной почты");
     private TextField document = new TextField("Номер паспорта");
     private Button save = new Button("Сохранить", VaadinIcon.CHECK.create());
     private Button cancel = new Button("Отмена", VaadinIcon.CHECK.create());

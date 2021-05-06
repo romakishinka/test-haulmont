@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.dao.Client;
 import com.example.demo.repository.ClientRepository;
 
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.TextField;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ public class ClientService {
     }
 
     private void checkEmail(String email) {
+
         if (email != null) {
             Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
             Matcher matcher = pattern.matcher(email);

@@ -22,6 +22,6 @@ public class Client {
     private String telephone;
     private String email;
     private String document;
-    @OneToMany(mappedBy = "client", targetEntity = Offer.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", targetEntity = Offer.class, fetch = FetchType.LAZY)
     private List<Offer> offers;
 }
