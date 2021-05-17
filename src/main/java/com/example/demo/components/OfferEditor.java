@@ -7,6 +7,7 @@ import com.example.demo.dao.Offer;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.CreditRepository;
 import com.example.demo.repository.OfferRepository;
+import com.example.demo.service.OfferService;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.button.Button;
@@ -24,9 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SpringComponent
 @UIScope
 public class OfferEditor extends VerticalLayout implements KeyNotifier {
-    private final OfferRepository offerRepository;
-    private final ClientRepository clientRepository;
-    private final CreditRepository creditRepository;
+    private final OfferService offerService;
     private ComboBox clientName = new ComboBox("Имя клиента");
     private ComboBox creditName = new ComboBox("Тип кредита");
     private IntegerField amount = new IntegerField("Сумма займа");
@@ -38,11 +37,8 @@ public class OfferEditor extends VerticalLayout implements KeyNotifier {
     private ChangeHandler changeHandler;
 
     @Autowired
-    public OfferEditor(OfferRepository offerRepository, ClientRepository clientRepository, CreditRepository creditRepository) {
-        this.offerRepository = offerRepository;
-        this.clientRepository = clientRepository;
-        this.creditRepository = creditRepository;
-
+    public OfferEditor(OfferService offerService, ClientRepository clientRepository, CreditRepository creditRepository) {
+        this.offerService = offerService;
 
         add(clientName, creditName, amount, actions);
         clientName.setItems(clientRepository.findAll().stream().map(Client::getName));
@@ -52,24 +48,18 @@ public class OfferEditor extends VerticalLayout implements KeyNotifier {
         setSpacing(true);
 
         save.getElement().getThemeList().add("primary");
-        addKeyPressListener(Key.ENTER, c -> save());
+        addKeyPressListener(Key.ENTER, c -> saveOffer());
 
-        save.addClickListener(c -> save());
+        save.addClickListener(c -> saveOffer());
         cancel.addClickListener(c -> cancel());
         setVisible(false);
     }
 
-    private void save() {
+    private void saveOffer() {
         String clientNameValue = (String) clientName.getValue();
         String creditNameValue = (String) creditName.getValue();
         if ((clientNameValue != null) || (creditNameValue != null)) {
-            Client client = clientRepository.findByName(clientNameValue).get(0);
-            Credit credit = creditRepository.findByName(creditNameValue).get(0);
-            KeyForOffer key = new KeyForOffer();
-            key.setClientID(client.getId());
-            key.setCreditID(credit.getId());
-
-            offerRepository.save(new Offer(key, client, credit, amount.getValue()));
+            offerService.saveOffer(clientNameValue, creditNameValue, amount);
             changeHandler.onChange();
         }
     }
